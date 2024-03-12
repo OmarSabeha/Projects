@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name = "viewport" content="width=device-width, initial-scale=1">
+        <title>To-Do list</title>
+        <link rel ="stylesheet" href="styles.css">
+
+        <!-- Include Email.js library -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        // Initialize Email.js
+        (function () {
+            emailjs.init("tC6ao1PIBXwcg0jMu");
+        })();
+    </script>
+
+
+    </head>
+    <body>
+        <div class="container">
+            <div class = "todo-app"> <!--(div)'s are esentially objects u can then adjust using there class name-->
+                <h2>To-Do <img src = "images/icon.png"></h2>
+                <div class = row>
+                    <input type="text" id="inbox" placeholder="Type Here">
+                    <button onclick="addtask()">Add</button>
+                
+                </div>
+                <ul id="list-container"> <!-- ul stands for undordered list. adds a list object ya3ny-->
+                    <!-- <li class = "checked">Task 1</li>    ( li stands for list item )
+                    <li>Task 2</li>
+                    <li>Task 3</li> -->
+
+                </ul>
+            </div>
+            <div class="newcontainer">
+                <div class="sendemails">
+                    <h2>Enter Your Email</h2>
+                    <div class="row">
+                        <form id="emailForm">
+                            <input type="email" id="email" name="email" required placeholder="Type Here">
+                            <button type="button" class="newbut" onclick="sendEmail()">Send Email</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <script>
+                function sendEmail() {
+    var emailInput = document.getElementById('email').value;
+
+    var filteredTodoItems = []; // Define or retrieve your todoItems array here.
+
+    var todoListString = filteredTodoItems.map(item => item.task).join("\n");
+
+    var params = {
+        sendername: "Your Name",
+        to: emailInput,
+        subject: "To-Do List",
+        replyto: "", 
+        message: "Here is your to-do list:\n\n" + todoListString,
+    };
+
+    var serviceID = "service_v5cc2fs";
+    var templateID = "template_90nxjul";
+
+    emailjs.send(serviceID, templateID, params)
+        .then(res => {
+            alert("To-Do List Sent");
+        })
+        .catch(error => {
+            console.error("Error sending to-do list:", error);
+            alert("Error sending to-do list. Check console for details.");
+        });
+}
+
+        </script>
+            
+
+        </div>
+    <script src = "script.js"></script>
+    </body>
+</html>
